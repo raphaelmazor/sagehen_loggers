@@ -99,6 +99,7 @@ hobo_0<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=0,
             Pressure_KPA = `Abs Pres, kPa (LGR S/N: 21110501, SEN S/N: 21110501)`,
             TempC = `Temp, °C (LGR S/N: 21110501, SEN S/N: 21110501)`,
+            Battery = `Batt, V (LGR S/N: 21110501, SEN S/N: 21110501)`,
             DateTime=`Date Time, GMT-07:00`)
 
 #BASE OF BANK
@@ -109,6 +110,7 @@ hobo_1<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=1,
             Pressure_KPA = `Abs Pres, kPa (LGR S/N: 21110502, SEN S/N: 21110502)`,
             TempC = `Temp, °C (LGR S/N: 21110502, SEN S/N: 21110502)`,
+            Battery = `Batt, V (LGR S/N: 21110502, SEN S/N: 21110502)`,
             DateTime=`Date Time, GMT-07:00`)
 #MIDBANK
 hobo_2<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data loggers/Alaska field logger test/California Logger Data - Sagehen Creek/21110500_2022_05_10.csv",
@@ -118,6 +120,7 @@ hobo_2<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=2,
             Pressure_KPA = `Abs Pres, kPa (LGR S/N: 21110500, SEN S/N: 21110500)`,
             TempC = `Temp, °C (LGR S/N: 21110500, SEN S/N: 21110500)`,
+            Battery = `Batt, V (LGR S/N: 21110500, SEN S/N: 21110500)`,
             DateTime=`Date Time, GMT-07:00`)
 #TOP OF BANK
 hobo_3<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data loggers/Alaska field logger test/California Logger Data - Sagehen Creek/21110503_2022_05_10.csv",
@@ -127,6 +130,7 @@ hobo_3<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=3,
             Pressure_KPA = `Abs Pres, kPa (LGR S/N: 21110503, SEN S/N: 21110503)`,
             TempC = `Temp, °C (LGR S/N: 21110503, SEN S/N: 21110503)`,
+            Battery = `Batt, V (LGR S/N: 21110503, SEN S/N: 21110503)`,
             DateTime=`Date Time, GMT-07:00`)
 
 hobo_df<-bind_rows(hobo_0, hobo_1, hobo_2, hobo_3) %>%
@@ -139,7 +143,8 @@ hobo_df<-bind_rows(hobo_0, hobo_1, hobo_2, hobo_3) %>%
             Analyte="Pressure",
             Result=Pressure_KPA,
             Unit="KPa",
-            TempC=TempC) %>%
+            TempC=TempC, 
+            Battery=Battery) %>%
   #trim pre-deployment
   filter(DateTime>"2021-11-03 16:00" %>% ymd_hm()) %>%
   #trim post-retrieval
@@ -151,6 +156,9 @@ ggplot(data=hobo_df, aes(x=DateTime, y=Result, group=position))+
   scale_color_brewer(palette="Set1")
 
 
+ggplot(data=hobo_df, aes(x=DateTime, y=Battery, group=position))+
+  geom_path(aes(color=as.factor(position)))+
+  scale_color_brewer(palette="Set1")
 
 ######
 #Alphamac
@@ -239,6 +247,7 @@ stic_0<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=0,
             Intensity = `Intensity, Lux (LGR S/N: 20906286, SEN S/N: 20906286)`,
             TempC = `Temp, °C (LGR S/N: 20906286, SEN S/N: 20906286)`,
+            Battery = `Batt, V (LGR S/N: 20906286, SEN S/N: 20906286)`,
             DateTime=`Date Time, GMT-07:00`)
 
 #BASE OF BANK
@@ -249,6 +258,7 @@ stic_1<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=1,
             Intensity = `Intensity, Lux (LGR S/N: 20906281, SEN S/N: 20906281)`,
             TempC = `Temp, °C (LGR S/N: 20906281, SEN S/N: 20906281)`,
+            Batteru = `Batt, V (LGR S/N: 20906281, SEN S/N: 20906281)`,
             DateTime=`Date Time, GMT-07:00`)
 #MIDBANK
 stic_2<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data loggers/Alaska field logger test/California Logger Data - Sagehen Creek/20906289_2022_05_10.csv",
@@ -258,6 +268,7 @@ stic_2<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=2,
             Intensity = `Intensity, Lux (LGR S/N: 20906289, SEN S/N: 20906289)`,
             TempC = `Temp, °C (LGR S/N: 20906289, SEN S/N: 20906289)`,
+            Battery = `Batt, V (LGR S/N: 20906289, SEN S/N: 20906289)`,
             DateTime=`Date Time, GMT-07:00`)
 #TOP OF BANK
 stic_3<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data loggers/Alaska field logger test/California Logger Data - Sagehen Creek/20906282_2022_05_10.csv",
@@ -267,6 +278,7 @@ stic_3<-read_csv("C:/Users/Raphaelm/SCCWRP/Stream Flow Duration - Documents/Data
             position=3,
             Intensity = `Intensity, Lux (LGR S/N: 20906282, SEN S/N: 20906282)`,
             TempC = `Temp, °C (LGR S/N: 20906282, SEN S/N: 20906282)`,
+            Battery = `Batt, V (LGR S/N: 20906282, SEN S/N: 20906282)`,
             DateTime=`Date Time, GMT-07:00`)
 
 stic_df<-bind_rows(stic_0, stic_1, stic_2, stic_3) %>%
@@ -279,7 +291,8 @@ stic_df<-bind_rows(stic_0, stic_1, stic_2, stic_3) %>%
             Analyte="Intensity",
             Result=Intensity,
             Unit="Lux",
-            TempC=TempC) %>%
+            TempC=TempC,
+            Battery=Battery) %>%
   #trim pre-deployment
   filter(DateTime>"2021-11-03 16:00" %>% ymd_hm()) %>%
   #trim post-retrieval
@@ -289,6 +302,18 @@ stic_df<-bind_rows(stic_0, stic_1, stic_2, stic_3) %>%
 ggplot(data=stic_df, aes(x=DateTime, y=Result, group=position))+
   geom_path(aes(color=as.factor(position)))+
   scale_color_brewer(palette="Set1")
+
+ggplot(data=stic_df, aes(x=DateTime, y=Battery, group=position))+
+  geom_path(aes(color=as.factor(position)))+
+  scale_color_brewer(palette="Set1")
+
+battery_vs_temp_plot<-ggplot(data=stic_df %>% 
+         pivot_longer(cols=c(Battery, Result, TempC)) %>%
+           mutate(name=case_when(name=="Result"~"Intensity",T~name)), aes(x=DateTime, y=value, group=position))+
+  geom_path(aes(color=as.factor(position)))+
+  scale_color_brewer(palette="Set1")+
+  facet_wrap(~name, scales="free_y", ncol=1)
+ggsave(battery_vs_temp_plot, filename="figures/battery_vs_temp_plot.jpg", heigh=6, width=6)
 
 ######
 #TEMPERATURE PLOT
@@ -318,3 +343,15 @@ pressure_plot<-
   scale_color_brewer(palette="Set1")
 
 ggsave(pressure_plot, filename="figures/pressure_plot.jpg", height=6, width=6)
+
+
+pressure_intensity_plot<-
+  ggplot(data=temp_df %>%
+           filter(sn!="80021F081FFFD3AE"),
+         aes(x=DateTime, y=Result))+
+  geom_path(aes(color=Brand))+
+  facet_wrap(position.f~Unit, scales="free", ncol=2)+
+  scale_color_brewer(palette="Set1")
+pressure_intensity_plot
+
+ggsave(pressure_intensity_plot, filename="figures/pressure_intensity_plot.jpg", height=6, width=6)
